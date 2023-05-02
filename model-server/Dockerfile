@@ -5,6 +5,7 @@ COPY ./models.config /models
 
 # each model copied as version
 COPY ./models/lyric-snow /models/lyric-snow/1
+COPY ./models/glamorous-meadow /models/glamorous-meadow/1
 
 EXPOSE 8500
 EXPOSE 8501

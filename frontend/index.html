@@ -57,9 +57,10 @@
         <div class="container md:px-36 pt-12">
           <p class="text-md text-white mb-12">
             Deployment of my Simple Transformer Abstractive Summarization model
-            for my bachelor thesis. Provide article with around same length as
-            example. Model will hallucinate less if presented with some generic
-            paragraph (see example).
+            for my bachelor thesis. <b>Provide input text</b> with around same
+            length as example. Click on <b>example buttons</b> to load
+            cherry-picked example input texts, then press <b>summarize</b> to
+            run model <b>inference</b>.
           </p>
 
           <p
@@ -76,10 +77,30 @@
               <div>
                 <input
                   class="hidden"
-                  id="lyric-snow"
+                  id="glamorous-meadow"
                   type="radio"
                   name="radio"
                   checked
+                />
+                <label
+                  class="flex flex-col p-4 rounded-lg border-2 border-gray-400 cursor-pointer"
+                  for="glamorous-meadow"
+                >
+                  <span class="text-xs font-semibold uppercase">Model</span>
+                  <span class="text-xl font-bold mt-2">glamorous-meadow</span>
+                  <ul class="text-sm mx-4 mt-2 list-disc">
+                    <li>Gigaword dataset - 3.8M samples</li>
+                    <li>3 layer Transformer with Glove 6b100d</li>
+                    <li>Max input: 70 words</li>
+                  </ul>
+                </label>
+              </div>
+              <div>
+                <input
+                  class="hidden"
+                  id="lyric-snow"
+                  type="radio"
+                  name="radio"
                 />
                 <label
                   class="flex flex-col p-4 rounded-lg border-2 border-gray-400 cursor-pointer"
@@ -87,24 +108,14 @@
                 >
                   <span class="text-xs font-semibold uppercase">Model</span>
                   <span class="text-xl font-bold mt-2">lyric-snow</span>
-                  <ul class="text-sm mt-2">
-                    <li>XSum and Inshorts combined dataset</li>
+                  <ul class="text-sm mx-4 mt-2 list-disc">
+                    <li>XSum and Inshorts combined dataset - 100k samples</li>
+                    <li>3 layer Transformer with Glove 6b100d</li>
+                    <li>Max input: 150 words</li>
                   </ul>
                 </label>
               </div>
-              <div>
-                <input class="hidden" id="radio_2" type="radio" name="radio" />
-                <label
-                  class="flex flex-col p-4 rounded-lg border-2 border-gray-400 cursor-pointer"
-                  for="radio_2"
-                >
-                  <span class="text-xs font-semibold uppercase">Model</span>
-                  <span class="text-xl font-bold mt-2">-</span>
-                  <ul class="text-sm mt-2">
-                    <li>-</li>
-                  </ul>
-                </label>
-              </div>
+
               <div>
                 <input class="hidden" id="radio_3" type="radio" name="radio" />
                 <label
@@ -113,7 +124,7 @@
                 >
                   <span class="text-xs font-semibold uppercase">Model</span>
                   <span class="text-xl font-bold mt-2">-</span>
-                  <ul class="text-sm mt-2">
+                  <ul class="text-sm mx-4 mt-2 list-disc">
                     <li>-</li>
                   </ul>
                 </label>
@@ -139,14 +150,6 @@
           <!-- Control buttons -->
           <div class="flex items-center justify-center mt-8">
             <button
-              id="buttex"
-              type="button"
-              class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 inline-flex items-center"
-            >
-              Load example
-            </button>
-
-            <button
               id="butt"
               type="button"
               class="text-white bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 inline-flex items-center"
@@ -170,6 +173,107 @@
                 />
               </svg>
               <p id="ptex">Summarize</p>
+            </button>
+          </div>
+
+          <!-- examples -->
+          <p
+            class="leading-normal text-base md:text-2xl mb-4 text-center md:text-left"
+          >
+            Examples
+          </p>
+
+          <div>
+            <button
+              type="button"
+              class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
+              onclick="article.value='In 1989 Beijing\'s Tiananmen Square became the focus for large-scale protests, which were crushed by China\'s Communist rulers. The events produced one of the most iconic photos of the 20th Century - a lone protester standing in front of a line of army tanks. The events remain a highly sensitive topic in China and one of the few remaining public memorials in Hong Kong has now been removed.'"
+            >
+              Tiananmen Square protests
+            </button>
+            <button
+              type="button"
+              class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
+              onclick="article.value='The Tiananmen Square protests were student-led demonstrations in 1989 calling for democracy, free speech and a free press in China. Pro-democracy protesters initially marched through Beijing to Tiananmen Square following the April 1989 death of Hu Yaobang, a former Communist Party leader who had worked to introduce democratic reform in China. While mourning Hu, the students called for a more open, democratic government nationwide. Eventually thousands of people joined the students in Tiananmen Square, with the protest’s numbers increasing to the tens of thousands by mid-May. The protests were halted in a deadly crackdown, known as the Tiananmen Square Massacre, by the Chinese government on June 4 and 5, 1989.'"
+            >
+              Tiananmen Square long
+            </button>
+            <button
+              type="button"
+              class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
+              onclick="article.value='An 18 year old man Joe Mama has been found in a tragic car accident in Washington US. The police have reported that a car has crashed with a lorry this evening on the street. The injured man has died on site.'"
+            >
+              Car accident - died
+            </button>
+            <button
+              type="button"
+              class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
+              onclick="article.value='An 18 year old man Joe Mama found alive in a tragic car accident in Washington US. The police have reported that a car has crashed with a lorry this evening on the street. The man was injured but survived the accident.'"
+            >
+              Car accident - survived
+            </button>
+            <button
+              type="button"
+              class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
+              onclick="article.value='An 18 year old man Joe Mama found dead in a tragic plane accident in Beijing, China. The police have reported that a plane has been struck mid air by an unknown object. No one on board survived the accident.'"
+            >
+              Plane crash in Beijing
+            </button>
+            <button
+              type="button"
+              class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
+              onclick="article.value='The World Health Organization (WHO) Country Office in China is informed of several cases of a pneumonia of unknown etiology (cause) with symptoms including shortness of breath and fever occurring in Wuhan, China. All initial cases seem connected to the Huanan Seafood Market.'"
+            >
+              Coronavirus in Wuhan
+            </button>
+            <button
+              type="button"
+              class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
+              onclick="article.value='HHS and CDC announce plans to provide $22 billion in funding for states, localities, and territories to support expanded COVID-19 testing and vaccine distribution from the Coronavirus Response and Relief Supplemental Appropriations Act.'"
+            >
+              Vaccine funding
+            </button>
+            <button
+              type="button"
+              class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
+              onclick="article.value='The US president Joe Biden has annouced that he will be coming to China in April to consult the chinese president Xi Jingping about the current nuclear threats.'"
+            >
+              Biden and Xi nuclear
+            </button>
+            <button
+              type="button"
+              class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
+              onclick="article.value='A 7-hour strike by airport workers in portugal planned for friday over job security issues could lead to flight cancellations - union and airport officials said.'"
+            >
+              Airport workers strike
+            </button>
+            <button
+              type="button"
+              class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
+              onclick="article.value='Israel prepared Sunday for prime minister Yitzhak rabin\'s state funeral which will be attended by a host of world leaders including the US president Joe Biden and the Kordanian and Egyptian heads of state.'"
+            >
+              Rabin funreal
+            </button>
+            <button
+              type="button"
+              class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
+              onclick="article.value='Japan\'s Toyota team Europe were banned from the World Rally Championship for one year here on Friday 3/5/2023 in a crushing ruling by the world council of the International Automobile Federation.'"
+            >
+              Toyota ban
+            </button>
+            <button
+              type="button"
+              class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
+              onclick="article.value='The United States business leaders lashed out Wednesday at legislation that would penalize companies for employing illegal immigrants.'"
+            >
+              US immigrant employment
+            </button>
+            <button
+              type="button"
+              class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
+              onclick="article.value='A Ukrainian farmer has come up with a novel way to remove mines left in his fields after Russia\'s invasion -- he\'s kitted out his tractor with protective panels stripped from Russian tanks and operates it by remote control.'"
+            >
+              Ukraine farmer
             </button>
           </div>
 
@@ -224,13 +328,13 @@
       const ptex = document.querySelector("#ptex")
       const clean = document.querySelector("#clean")
 
-      // model name
-      const model = document.querySelector("#lyric-snow").checked
-        ? "lyric-snow"
-        : "none"
-
       const infer = _.debounce(async (input) => {
-        console.log("Sending to inference: ", input)
+        const model = [
+          // all models
+          document.querySelector("#lyric-snow"),
+          document.querySelector("#glamorous-meadow"),
+        ].filter((c) => c.checked)[0].id
+        console.log("Sending to inference for", model, ": ", input)
 
         prog.style.setProperty("display", "inline-flex")
         ptex.innerHTML =
@@ -258,13 +362,6 @@
 
       butt.addEventListener("click", (ev) => {
         infer(article.value)
-      })
-
-      buttex.addEventListener("click", (ev) => {
-        article.value =
-          Math.random() > 0.5
-            ? "Police said the incident in the larkfield road area was reported at about 23:45 bst on friday one of the petrol bombs caused damage to the outer door of the property and the other failed to ignite no-one was in the property at the time of the attack."
-            : "An 18 year old man Joe Mama has been killed in a tragic car accident in Washington US. The police have reported that a car has crashed with a lorry this evening on the street. The injured man has died on site."
       })
     </script>
   </body>
