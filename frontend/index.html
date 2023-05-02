@@ -7,15 +7,8 @@
     <title>StranaSUm</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"
-    />
-    <!--Replace with your tailwind.css once created-->
-    <link
-      href="https://unpkg.com/@tailwindcss/custom-forms/dist/custom-forms.min.css"
-      rel="stylesheet"
-    />
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
 
@@ -33,9 +26,17 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+
+    <style>
+      input:checked + label {
+        border-color: rgb(0, 238, 255);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+    </style>
   </head>
   <body
-    class="leading-normal tracking-normal text-indigo-400 m-6 bg-cover bg-fixed"
+    class="leading-normal tracking-normal text-cyan-300 m-6 bg-cover bg-fixed"
     style="background-image: url('header.png')"
   >
     <div class="h-full">
@@ -43,10 +44,10 @@
       <div class="w-full container mx-auto">
         <div class="w-full flex items-center justify-between">
           <a
-            class="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
+            class="flex items-center bg-clip-text font-bold text-2xl lg:text-4xl text-transparent bg-gradient-to-r from-amber-400 via-pink-500 to-purple-500"
             href="https://github.com/Plasmoxy"
             >STranA<span
-              class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500"
+              class="text-cyan-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
               >Sum</span
             >
             <p class="text-sm text-white mx-5">by Plasmoxy</p>
@@ -64,16 +65,78 @@
           <p
             class="leading-normal text-base md:text-2xl mb-4 text-center md:text-left"
           >
-            Original article (max 150 words):
+            Select model:
           </p>
 
+          <!-- model select  -->
+          <div class="flex items-center justify-center mt-2 mb-8">
+            <form
+              class="grid grid-cols-3 gap-2 w-full max-w-screen-sm text-white"
+            >
+              <div>
+                <input
+                  class="hidden"
+                  id="lyric-snow"
+                  type="radio"
+                  name="radio"
+                  checked
+                />
+                <label
+                  class="flex flex-col p-4 rounded-lg border-2 border-gray-400 cursor-pointer"
+                  for="lyric-snow"
+                >
+                  <span class="text-xs font-semibold uppercase">Model</span>
+                  <span class="text-xl font-bold mt-2">lyric-snow</span>
+                  <ul class="text-sm mt-2">
+                    <li>XSum and Inshorts combined dataset</li>
+                  </ul>
+                </label>
+              </div>
+              <div>
+                <input class="hidden" id="radio_2" type="radio" name="radio" />
+                <label
+                  class="flex flex-col p-4 rounded-lg border-2 border-gray-400 cursor-pointer"
+                  for="radio_2"
+                >
+                  <span class="text-xs font-semibold uppercase">Model</span>
+                  <span class="text-xl font-bold mt-2">-</span>
+                  <ul class="text-sm mt-2">
+                    <li>-</li>
+                  </ul>
+                </label>
+              </div>
+              <div>
+                <input class="hidden" id="radio_3" type="radio" name="radio" />
+                <label
+                  class="flex flex-col p-4 rounded-lg border-2 border-gray-400 cursor-pointer"
+                  for="radio_3"
+                >
+                  <span class="text-xs font-semibold uppercase">Model</span>
+                  <span class="text-xl font-bold mt-2">-</span>
+                  <ul class="text-sm mt-2">
+                    <li>-</li>
+                  </ul>
+                </label>
+              </div>
+            </form>
+            <!-- Component End  -->
+          </div>
+
+          <p
+            class="leading-normal text-base md:text-2xl mb-4 text-center md:text-left"
+          >
+            Input text:
+          </p>
+
+          <!-- input area -->
           <textarea
             id="article"
             rows="6"
-            class="block p-2.5 w-full text-md text-white bg-gray-900 rounded-lg border border-gray-800 focus:ring-blue-500"
+            class="block p-2.5 w-full text-md text-white bg-transparent rounded-lg border border-white border-2 focus:outline-none focus:border-cyan-300"
             placeholder="Write text here"
           ></textarea>
 
+          <!-- Control buttons -->
           <div class="flex items-center justify-center mt-8">
             <button
               id="buttex"
@@ -110,44 +173,42 @@
             </button>
           </div>
 
-          <p
-            class="leading-normal text-base md:text-2xl mb-4 mt-12 text-center md:text-left"
-          >
-            Clean text
-          </p>
+          <div class="mb-4 mt-12">
+            <span
+              class="leading-normal md:text-2xl text-center md:text-left bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-pink-500"
+            >
+              Cleaned text
+            </span>
+          </div>
 
           <textarea
             id="clean"
             rows="4"
-            class="block p-2.5 w-full text-md text-white bg-gray-900 rounded-lg border border-gray-800 focus:ring-blue-500"
+            class="block p-2.5 w-full text-md text-white bg-transparent rounded-lg border border-white border-2 focus:outline-none focus:border-cyan-300"
             placeholder="Model will generate output here"
           ></textarea>
 
-          <p
-            class="leading-normal text-yellow-400 md:text-2xl mb-4 mt-12 text-center md:text-left"
-          >
-            Predicted summary (max 40 words):
-          </p>
+          <div class="mb-4 mt-12">
+            <span
+              class="leading-normal md:text-2xl text-center md:text-left bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-pink-500"
+            >
+              Predicted summary
+            </span>
+          </div>
 
           <textarea
             id="summary"
             rows="3"
-            class="block p-2.5 w-full text-md text-white bg-gray-900 rounded-lg border border-gray-800 focus:ring-blue-500"
+            class="block p-2.5 w-full text-md text-white bg-transparent rounded-lg border border-white border-2 focus:outline-none focus:border-cyan-300"
             placeholder="Model will generate output here"
           ></textarea>
 
           <!--Footer-->
           <div
-            class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in"
+            class="w-full pt-16 pb-6 text-sm text-center text-base md:text-left fade-in"
           >
-            <a class="text-white-500 no-underline hover:no-underline" href="#"
-              >© Plasmoxy 2023</a
-            >
-            - Template by
-            <a
-              class="no-underline hover:no-underline"
-              href="https://www.tailwindtoolbox.com"
-              >TailwindToolbox.com</a
+            <a class="no-underline hover:no-underline" href="#"
+              >© Sebastián Petrík - Plasmoxy 2023</a
             >
           </div>
         </div>
@@ -163,11 +224,17 @@
       const ptex = document.querySelector("#ptex")
       const clean = document.querySelector("#clean")
 
+      // model name
+      const model = document.querySelector("#lyric-snow").checked
+        ? "lyric-snow"
+        : "none"
+
       const infer = _.debounce(async (input) => {
         console.log("Sending to inference: ", input)
 
         prog.style.setProperty("display", "inline-flex")
-        ptex.innerHTML = "Summarizing ... (up to 15 s)"
+        ptex.innerHTML =
+          "Summarizing ... (please wait up to 15 s for container start)"
 
         const inferRes = await fetch(
           "https://stranasum-flask-j72sodcbvq-ey.a.run.app/summarize",
@@ -175,6 +242,7 @@
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
+              model,
               text: input,
             }),
           }

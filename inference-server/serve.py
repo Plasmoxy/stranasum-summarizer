@@ -10,7 +10,9 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from waitress import serve
 
-SERVING_URL = "https://stranasum-j72sodcbvq-ey.a.run.app/v1/models/stranasum:predict"
+
+def SERVING_URL(model):
+    return f"https://stranasum-j72sodcbvq-ey.a.run.app/v1/models/{model}:predict"
 
 
 class TextProcessor:
@@ -110,12 +112,13 @@ CORS(app)
 def summarize():
     request_data = request.get_json()
     text = request_data['text']
+    model = request_data['model']
 
     clean = processor.clean_text(text)
     article = processor.apply_special_tokens(clean)
     print("Inferring:", article)
 
-    res = requests.post(SERVING_URL, json={
+    res = requests.post(SERVING_URL(model), json={
         "inputs": {
             "sentence": [article]
         }
