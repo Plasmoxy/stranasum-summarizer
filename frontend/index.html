@@ -77,20 +77,20 @@
               <div>
                 <input
                   class="hidden"
-                  id="glamorous-meadow"
+                  id="copper-haze-38"
                   type="radio"
                   name="radio"
                   checked
                 />
                 <label
                   class="flex flex-col p-4 rounded-lg border-2 border-gray-400 cursor-pointer"
-                  for="glamorous-meadow"
+                  for="copper-haze-38"
                 >
                   <span class="text-xs font-semibold uppercase">Model</span>
-                  <span class="text-xl font-bold mt-2">glamorous-meadow</span>
+                  <span class="text-xl font-bold mt-2">copper-haze-38</span>
                   <ul class="text-sm mx-4 mt-2 list-disc">
                     <li>Gigaword dataset - 3.8M samples</li>
-                    <li>3 layer Transformer with Glove 6b100d</li>
+                    <li>6 layer Transformer with Glove 6b100d</li>
                     <li>Max input: 70 words</li>
                   </ul>
                 </label>
@@ -117,13 +117,18 @@
               </div>
 
               <div>
-                <input class="hidden" id="radio_3" type="radio" name="radio" />
+                <input
+                  class="hidden"
+                  id="rural-star-32"
+                  type="radio"
+                  name="radio"
+                />
                 <label
                   class="flex flex-col p-4 rounded-lg border-2 border-gray-400 cursor-pointer"
-                  for="radio_3"
+                  for="rural-star-32"
                 >
                   <span class="text-xs font-semibold uppercase">Model</span>
-                  <span class="text-xl font-bold mt-2">-</span>
+                  <span class="text-xl font-bold mt-2">rural-star-32-</span>
                   <ul class="text-sm mx-4 mt-2 list-disc">
                     <li>-</li>
                   </ul>
@@ -332,7 +337,8 @@
         const model = [
           // all models
           document.querySelector("#lyric-snow"),
-          document.querySelector("#glamorous-meadow"),
+          document.querySelector("#copper-haze-38"),
+          document.querySelector("#rural-star-32"),
         ].filter((c) => c.checked)[0].id
         console.log("Sending to inference for", model, ": ", input)
 

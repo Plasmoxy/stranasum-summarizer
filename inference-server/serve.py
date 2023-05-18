@@ -43,6 +43,9 @@ class TextProcessor:
         # remove . if it occurs more than one time consecutively
         text = re.sub("(\.\.+)", ' ', str(text))
 
+        # special - fix u.s. contraction in gigaword
+        text = re.sub("(u\.s\.)", 'united states', str(text))
+
         # fix contractions to base form
         text = contractions.fix(text)
 

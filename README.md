@@ -7,3 +7,8 @@ Code repository for the bachelor thesis "Abstractive summarization using deep le
 FIIT STU, Bratislava 22. 5. 2023
 
 ## Directory structure
+
+```
+
+
+```
