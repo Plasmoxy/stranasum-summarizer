@@ -1,7 +1,9 @@
 """
 Final inference server connecting to stranasum tensorflow-serving service
+Sebastian Petrik
 """
 
+import os
 import re
 
 import contractions
@@ -10,9 +12,13 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from waitress import serve
 
+MODELSERVER_URL = "http://localhost:8501"
+if "MODELSERVER_URL" in os.environ:
+    MODELSERVER_URL = os.environ["MODELSERVER_URL"]
+
 
 def SERVING_URL(model):
-    return f"https://stranasum-j72sodcbvq-ey.a.run.app/v1/models/{model}:predict"
+    return f"{MODELSERVER_URL}/v1/models/{model}:predict"
 
 
 class TextProcessor:
@@ -134,5 +140,5 @@ def summarize():
     return jsonify({"clean": clean, "summary": summary})
 
 
-print("Serving Stranasum on 8080...")
+print("Serving Stranasum inference server on 8080...")
 serve(app, host="0.0.0.0", port=8080)

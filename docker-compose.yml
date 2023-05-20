@@ -1,0 +1,28 @@
+# Run `docker compose up --build` using latest docker, then Ctrl-C to kill the running containers.
+# -f for compose file spec.
+
+version: "3.8"
+services:
+
+  stranasum-inference-server:
+    build: ./inference-server
+    image: stranasum-inference-server
+    ports:
+      - 8080:8080
+      
+  stranasum-model-server:
+    build:
+      context: ./model-server
+      dockerfile: Dockerfile
+    image: stranasum-model-server
+    ports:
+      - 8501:8501
+      
+  stranasum-frontend:
+    build: ./stranasum-frontend
+    image: stranasum-frontend
+    ports:
+      - 1234:1234
+      
+    
+    
