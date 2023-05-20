@@ -6,22 +6,14 @@ version: "3.8"
 services:
 
   stranasum-inference-server:
-    build: ./inference-server
-    image: stranasum-inference-server
+    build: 
+      context: ./inference-server
+      dockerfile: Dockerfile.cloud
     ports:
       - 8080:8080
       
-  stranasum-model-server:
-    build:
-      context: ./model-server
-      dockerfile: Dockerfile.m1
-    image: stranasum-model-server
-    ports:
-      - 8501:8501
-      
   stranasum-frontend:
     build: ./stranasum-frontend
-    image: stranasum-frontend
     ports:
       - 1234:1234
       

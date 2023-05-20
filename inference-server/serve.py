@@ -133,6 +133,9 @@ def summarize():
         }
     })
 
+    print(f"modelserver {MODELSERVER_URL}")
+    print(res)
+
     out = res.json()['outputs']['output_0']
 
     summary = processor.remove_special_tokens(out)
@@ -141,4 +144,5 @@ def summarize():
 
 
 print("Serving Stranasum inference server on 8080...")
+print(MODELSERVER_URL)
 serve(app, host="0.0.0.0", port=8080)
