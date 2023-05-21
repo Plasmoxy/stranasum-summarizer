@@ -1,4 +1,4 @@
-FROM tensorflow/serving:latest
+FROM tensorflow/serving:2.11.0
 
 
 COPY ./models.config /models
@@ -23,4 +23,4 @@ COPY ./models/rural-star-32 /models/rural-star-32/1
 EXPOSE 8500
 EXPOSE 8501
 
-CMD ["tensorflow_model_server", "--port=8500", "--rest_api_port=8501", "--model_config_file=/models/models.config"]
+ENTRYPOINT ["tensorflow_model_server", "--port=8500", "--rest_api_port=8501", "--model_config_file=/models/models.config"]
