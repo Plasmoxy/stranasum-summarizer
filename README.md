@@ -1,4 +1,14 @@
-# Stranasum - Abstractive summarization using deep learning
+<p align="center">
+  <picture>
+    <img alt="Hugging Face Transformers Library" src="" style="max-width: 100%;">
+  </picture>
+  <br/>
+  <br/>
+</p>
+
+<h3 align="center">
+    <p>Stranasum - Abstractive summarization using deep learning</p>
+</h3>
 
 Author: Sebastián Petrík
 
