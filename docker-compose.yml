@@ -17,12 +17,5 @@ services:
     image: stranasum-model-server
     ports:
       - 8501:8501
-      
-  stranasum-frontend:
-    build: ./stranasum-frontend
-    image: stranasum-frontend
-    ports:
-      - 1234:1234
-      
     
     

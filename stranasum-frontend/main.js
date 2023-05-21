@@ -1,7 +1,7 @@
 /* Main script of Stransum frontend demo application */
 
 const INFERENCE_URL =
-  process.env.INFERENCE_URL ?? "http://localhost:8080/summarize"
+  "https://stranasum-flask-j72sodcbvq-ey.a.run.app/summarize"
 
 const article = document.querySelector("#article")
 const summary = document.querySelector("#summary")
