@@ -1,6 +1,6 @@
 <p align="center">
   <picture>
-    <img alt="Hugging Face Transformers Library" src="" style="max-width: 100%;">
+    <img alt="Hugging Face Transformers Library" src="https://github.com/Plasmoxy/stranasum-summarizer/blob/main/logo.png?raw=true" height="100" style="max-width: 100%;">
   </picture>
   <br/>
   <br/>
