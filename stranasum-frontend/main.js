@@ -10,6 +10,7 @@ const butt = document.querySelector("#butt")
 const buttex = document.querySelector("#buttex")
 const ptex = document.querySelector("#ptex")
 const clean = document.querySelector("#clean")
+const useAsInput = document.querySelector("#useAsInput")
 
 const RE_SPLIT = /(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s/
 
@@ -33,13 +34,11 @@ function renderGradientSpan(text, ratio) {
 }
 
 // prettier sentence format
-function asSentenceFormat(string) {
-  return (
-    string.replace(/\ss\s/, "'s ").charAt(0).toUpperCase() +
-    string.slice(1) +
-    "."
-  )
+function asSentenceFormat(text) {
+  text = text.replace(/(\s+s\s)/gi, "'s ")
+  return text.charAt(0).toUpperCase() + text.slice(1) + "."
 }
+
 const sentenceWordCount = (x) => x.trim().split(/\s+/).length
 
 const sentenceEqualChunks = (text, limit) => {
@@ -49,7 +48,7 @@ const sentenceEqualChunks = (text, limit) => {
   if (sentences.length === 0) return sentences
 
   while (sentences.length > 0) {
-    const sentence = sentences.pop()
+    const sentence = sentences.shift()
 
     // if assignable to last chunk
     if (
@@ -63,7 +62,7 @@ const sentenceEqualChunks = (text, limit) => {
       chunks.push([sentence])
     }
 
-    // console.log(chunks)
+    console.log(chunks)
   }
 
   return chunks.map((c) => c.join(" "))
@@ -94,11 +93,17 @@ const onSummarize = _.debounce(async (input) => {
   const limit = model === "lyric-snow" ? 140 : 60
   const chunks = sentenceEqualChunks(input, limit)
   article.innerHTML = chunks
-    .map((chunk, idx) => renderGradientSpan(chunk, idx / (chunks.length - 1)))
+    .map((chunk, idx) =>
+      renderGradientSpan(
+        chunk,
+        chunks.length > 1 ? idx / (chunks.length - 1) : 0.1
+      )
+    )
     .join("")
 
   prog.style.setProperty("display", "inline-flex")
   progSum.style.setProperty("display", "inline-flex")
+  useAsInput.style.setProperty("display", "none")
   summary.innerHTML = ""
   clean.innerHTML = ""
 
@@ -106,20 +111,16 @@ const onSummarize = _.debounce(async (input) => {
     for (let i = 0; i < chunks.length; i++) {
       ptex.innerHTML = `Summarizing (${i + 1}/${chunks.length})`
 
+      const gratio = chunks.length > 1 ? i / (chunks.length - 1) : 0.1
+
       const inferred = await infer(chunks[i], model)
       summary.innerHTML =
         summary.innerHTML +
-        renderGradientSpan(
-          asSentenceFormat(inferred.summary),
-          i / (chunks.length - 1)
-        ) +
+        renderGradientSpan(asSentenceFormat(inferred.summary), gratio) +
         " "
       clean.innerHTML =
         clean.innerHTML +
-        renderGradientSpan(
-          asSentenceFormat(inferred.clean),
-          i / (chunks.length - 1)
-        ) +
+        renderGradientSpan(asSentenceFormat(inferred.clean), gratio) +
         " "
     }
   } catch (e) {
@@ -130,9 +131,18 @@ const onSummarize = _.debounce(async (input) => {
   // ui cleanup
   prog.style.setProperty("display", "none")
   progSum.style.setProperty("display", "none")
+  useAsInput.style.setProperty("display", "block")
   ptex.innerHTML = "Summarize"
 }, 100)
 
 butt.addEventListener("click", (ev) => {
+  onSummarize(article.innerText)
+})
+
+useAsInput.addEventListener("click", (ev) => {
+  article.innerHTML = summary.innerHTML
+  summary.innerHTML = ""
+  clean.innerHTML = ""
+  useAsInput.style.setProperty("display", "none")
   onSummarize(article.innerText)
 })

@@ -72,10 +72,10 @@
         <div class="container md:px-36 pt-6">
           <p class="text-md text-white mb-6">
             Deployment of my Simple Transformer Abstractive Summarization (STranASum) model
-            for my bachelor thesis, focusing specifically on summarization of <b class="text-pink-400">news articles</b>. <b class="text-amber-400">Provide input text</b> with around same
-            length as example. Click on <b class="text-amber-400">example buttons</b> to load
-            cherry-picked example input texts, or provide your own text, then press <b class="text-amber-400">summarize</b> to
-            run model <b class="text-amber-400">inference</b>. The model is trained <b class="text-amber-400">abstractive</b> - it will attempt to understand and paraphrase the text. In case of the Gigaword models, the maximum sentence length is 70 words. If you enter a longer text, the app will <b class="text-amber-400">split the sentences/text into chunks</b> and print multiple chunk summaries. Each model output is capitalized and a dot is appended.
+            for my bachelor thesis, focusing specifically on summarization of <b class="text-amber-300">news articles</b>. <b class="text-amber-300">Provide input text</b> with around same
+            length as example. Click on <b class="text-amber-300">example buttons</b> to load
+            cherry-picked example input texts, or provide your own text, then press <b class="text-amber-300">summarize</b> to
+            run model <b class="text-amber-300">inference</b>. The model is trained <b class="text-amber-300">abstractive</b> - it will attempt to understand and paraphrase the text. In case of the Gigaword models, the maximum sentence length is 70 words. If you enter a longer text, the app will <b class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-200 to-teal-300">split the sentences/text into chunks</b> and print multiple chunk summaries. Each model output is capitalized and a dot is appended. Note that the models are not very large (~30M parameters) and is running on a CPU instance (for comparison, GPT-4 has ~175B parameters!) and may provide incorrect summaries.
           </p>
 
           <p
@@ -226,6 +226,15 @@
                     fill="#fff"
                   />
                 </svg>
+                
+                <!-- use as input -->
+                <button
+                  id="useAsInput"
+                  type="button"
+                  class="text-black mt-2 bg-gradient-to-r from-cyan-400 to-teal-500 font-medium rounded-lg text-sm px-2 py-1 text-center m-1 inline-flex items-center"
+                  style="display: none;"
+                >Use as input</button>
+                
               </div>
               </div>
             </div>
@@ -273,7 +282,7 @@
             <button
               type="button"
               class="text-black bg-amber-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
-              onclick="article.innerHTML=`They also raise concerns about increasing Chinese influence in the former British colony. Critics say the new rail link undermines Hong Kong's autonomy, which has  been guaranteed by China until 2047. Authorities expect that by 2021, up to 80,000 passengers could access the new service on  80 trains daily.     The project cost nearly 11 billion dollars and took almost eight years to complete. It is the first time that mainland Chinese laws  are applied inside Hong Kong. As a part of China, mainland police forces will check travelers' documents and passports, making an additional stop at the Hong Kong - Chinese border unnecessary. Chinese authorities will  be in control of part of Hong Kong's West Kowloon station. Shenzen, just across the border from Hong Kong, can be reached in only 20 minutes. Bullet trains can now travel from Beijing to Hong Kong in only 9  hours, compared to 18 before.It will connect Hong Kong to the 25,000 km high-speed Chinese rail network, the largest in the world.  The Guangzhou-Shenzhen-Hong Kong Express Rail Link is expected to bring economic benefits to both China and Hong Kong as well as allow more Chinese tourists to travel to the former British colony.The first high-speed railway between Hong Kong and China has gone into operation.`"
+              onclick="article.innerHTML=`The first high-speed railway between Hong Kong and China has gone into operation.  The Guangzhou-Shenzhen-Hong Kong Express Rail Link is expected to bring economic benefits to both China and Hong Kong as well as allow more Chinese tourists to travel to the former British colony.It will connect Hong Kong to the 25,000 km high-speed Chinese rail network, the largest in the world. Bullet trains can now travel from Beijing to Hong Kong in only 9  hours, compared to 18 before. Shenzen, just across the border from Hong Kong, can be reached in only 20 minutes. Chinese authorities will  be in control of part of Hong Kong's West Kowloon station. As a part of China, mainland police forces will check travelers' documents and passports, making an additional stop at the Hong Kong - Chinese border unnecessary. It is the first time that mainland Chinese laws  are applied inside Hong Kong.     The project cost nearly 11 billion dollars and took almost eight years to complete. Authorities expect that by 2021, up to 80,000 passengers could access the new service on  80 trains daily. Critics say the new rail link undermines Hong Kong's autonomy, which has  been guaranteed by China until 2047. They also raise concerns about increasing Chinese influence in the former British colony.`"
             >
               Hong kong railway
             </button>
