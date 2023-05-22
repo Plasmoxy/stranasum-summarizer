@@ -13,6 +13,25 @@ const clean = document.querySelector("#clean")
 
 const RE_SPLIT = /(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s/
 
+// unused
+const CHUNKSEP = `<svg style="display: inline; width: 1em; height: 1em;" viewBox="0 0 14 10" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="7" cy="4" r="2" fill="#0cf2d4" />
+</svg>`
+
+// gradient for chunks
+const GRAD_START = "#6feafc" // "#fbbe24"
+const GRAD_END = "#7affdc" // "#ec489a"
+const GRAD = new Color(GRAD_START).range(new Color(GRAD_END), {
+  space: "hsl",
+  outputSpace: "srgb",
+})
+
+function renderGradientSpan(text, ratio) {
+  return `<span style="color: ${GRAD(ratio).toString({
+    format: "hex",
+  })};">${text}</span>`
+}
+
 // prettier sentence format
 function asSentenceFormat(string) {
   return (
@@ -74,6 +93,9 @@ const onSummarize = _.debounce(async (input) => {
 
   const limit = model === "lyric-snow" ? 140 : 60
   const chunks = sentenceEqualChunks(input, limit)
+  article.innerHTML = chunks
+    .map((chunk, idx) => renderGradientSpan(chunk, idx / (chunks.length - 1)))
+    .join("")
 
   prog.style.setProperty("display", "inline-flex")
   progSum.style.setProperty("display", "inline-flex")
@@ -86,8 +108,19 @@ const onSummarize = _.debounce(async (input) => {
 
       const inferred = await infer(chunks[i], model)
       summary.innerHTML =
-        summary.innerHTML + asSentenceFormat(inferred.summary) + " "
-      clean.innerHTML = clean.innerHTML + asSentenceFormat(inferred.clean) + " "
+        summary.innerHTML +
+        renderGradientSpan(
+          asSentenceFormat(inferred.summary),
+          i / (chunks.length - 1)
+        ) +
+        " "
+      clean.innerHTML =
+        clean.innerHTML +
+        renderGradientSpan(
+          asSentenceFormat(inferred.clean),
+          i / (chunks.length - 1)
+        ) +
+        " "
     }
   } catch (e) {
     ptex.innerHTML = "Error when calling inference service."
