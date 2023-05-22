@@ -26,22 +26,34 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-
+    
     <style>
       input:checked + label {
         border-color: rgb(0, 238, 255);
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
           0 4px 6px -2px rgba(0, 0, 0, 0.05);
       }
+      
+      .blurred {
+        backdrop-filter: blur(4px);
+        background-color: #00000050;
+      }
+      
+      body {
+        background-color: black;
+        background-image: url('moon.jpg');
+      }
+      
     </style>
   </head>
   <body
-    class="leading-normal tracking-normal text-cyan-300 m-6 bg-cover bg-fixed"
-    style="background-image: url('header.png')"
+    class="leading-normal tracking-normal text-cyan-300 bg-cover bg-center bg-fixed"
   >
-    <div class="h-full">
+    <main class="h-full p-6">
       <!--Nav-->
       <div class="w-full container mx-auto">
+        
+        <!-- header -->
         <div class="w-full flex items-center justify-between">
           <a
             class="flex items-center bg-clip-text font-bold text-2xl lg:text-4xl text-transparent bg-gradient-to-r from-amber-400 via-pink-500 to-purple-500"
@@ -53,18 +65,19 @@
             <p class="text-sm text-white mx-5">by Plasmoxy</p>
           </a>
         </div>
+        
         <!--Main-->
-        <div class="container md:px-36 pt-12">
-          <p class="text-md text-white mb-12">
+        <div class="container md:px-36 pt-6">
+          <p class="text-md text-white mb-6">
             Deployment of my Simple Transformer Abstractive Summarization model
             for my bachelor thesis. <b>Provide input text</b> with around same
             length as example. Click on <b>example buttons</b> to load
             cherry-picked example input texts, then press <b>summarize</b> to
-            run model <b>inference</b>.
+            run model <b>inference</b>. In case of the Gigaword models, the maximum sentence length is 70 words. If you enter a longer text, the app will split the sentences/text into chunks and print multiple summaries.
           </p>
 
           <p
-            class="leading-normal text-base md:text-2xl mb-4 text-center md:text-left"
+            class="leading-normal font-bold text-2xl mb-4 text-left"
           >
             Select model:
           </p>
@@ -72,7 +85,7 @@
           <!-- model select  -->
           <div class="flex items-center justify-center mt-2 mb-8">
             <form
-              class="grid grid-cols-3 gap-2 w-full max-w-screen-sm text-white"
+              class="grid grid-cols-1 md:grid-cols-3 gap-2 w-full max-w-screen-sm text-white"
             >
               <div>
                 <input
@@ -83,14 +96,14 @@
                   checked
                 />
                 <label
-                  class="flex flex-col p-4 rounded-lg border-2 border-gray-400 cursor-pointer"
+                  class="flex flex-col p-4 rounded-lg border-2 border-gray-400 cursor-pointer backdrop-blur-md"
                   for="copper-haze-38"
                 >
                   <span class="text-xs font-semibold uppercase">Model</span>
                   <span class="text-xl font-bold mt-2">copper-haze-38</span>
                   <ul class="text-sm mx-4 mt-2 list-disc">
                     <li>Gigaword dataset - 3.8M samples</li>
-                    <li>6 layer Transformer with Glove 6b100d</li>
+                    <li>6 layer Transformer with normal embeddings</li>
                     <li>Max input: 70 words</li>
                   </ul>
                 </label>
@@ -103,13 +116,13 @@
                   name="radio"
                 />
                 <label
-                  class="flex flex-col p-4 rounded-lg border-2 border-gray-400 cursor-pointer"
+                  class="flex flex-col p-4 rounded-lg border-2 border-gray-400 cursor-pointer backdrop-blur-md"
                   for="lyric-snow"
                 >
                   <span class="text-xs font-semibold uppercase">Model</span>
                   <span class="text-xl font-bold mt-2">lyric-snow</span>
                   <ul class="text-sm mx-4 mt-2 list-disc">
-                    <li>XSum and Inshorts combined dataset - 100k samples</li>
+                    <li>Experimental Inshorts + XSum, 100k samples</li>
                     <li>3 layer Transformer with Glove 6b100d</li>
                     <li>Max input: 150 words</li>
                   </ul>
@@ -124,13 +137,15 @@
                   name="radio"
                 />
                 <label
-                  class="flex flex-col p-4 rounded-lg border-2 border-gray-400 cursor-pointer"
+                  class="flex flex-col p-4 rounded-lg border-2 border-gray-400 cursor-pointer backdrop-blur-md"
                   for="rural-star-32"
                 >
                   <span class="text-xs font-semibold uppercase">Model</span>
                   <span class="text-xl font-bold mt-2">rural-star-32-</span>
                   <ul class="text-sm mx-4 mt-2 list-disc">
-                    <li>-</li>
+                    <li>Gigaword dataset - 3.8M samples</li>
+                    <li>3 layer Transformer with Glove 6B 100d embeddings</li>
+                    <li>Max input: 70 words</li>
                   </ul>
                 </label>
               </div>
@@ -138,26 +153,66 @@
             <!-- Component End  -->
           </div>
 
-          <p
-            class="leading-normal text-base md:text-2xl mb-4 text-center md:text-left"
-          >
-            Input text:
-          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2">
+            <div class="flex-1 m-3 flex flex-col justify-start">
+              <div class="mb-4">
+                <span
+                  class="leading-normal font-bold text-2xl text-left bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-teal-500"
+                >
+                  Input text
+                </span>
+              </div>
 
-          <!-- input area -->
-          <textarea
-            id="article"
-            rows="6"
-            class="block p-2.5 w-full text-md text-white bg-transparent rounded-lg border border-white border-2 focus:outline-none focus:border-cyan-300"
-            placeholder="Write text here"
-          ></textarea>
+              <!-- input area -->
+              <textarea
+                id="article"
+                rows="11"
+                class="block p-2.5 w-full text-md text-white rounded-lg border border-white border-2 focus:outline-none focus:border-cyan-200 blurred"
+                placeholder="Write text here"
+              ></textarea>
+            </div>
+            <div class="flex-1 flex-row m-3 justify-start">
+              <div class="flex-1">
+                <div class="mb-4">
+                  <span
+                    class="leading-normal font-bold text-2xl text-left bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-pink-500"
+                  >
+                    Cleaned text
+                  </span>
+                </div>
+
+                <textarea
+                  id="clean"
+                  rows="4"
+                  class="block p-2.5 w-full text-md text-white rounded-lg border border-white border-2 focus:outline-none focus:border-pink-400 blurred"
+                  placeholder="Model will generate output here"
+                ></textarea>
+              </div>
+              <div class="flex-1">
+                <div class="mb-4 mt-5">
+                  <span
+                    class="leading-normal font-bold text-2xl text-left bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-pink-500"
+                  >
+                    Predicted summary
+                  </span>
+                </div>
+
+                <textarea
+                  id="summary"
+                  rows="3"
+                  class="block p-2.5 w-full text-md text-white rounded-lg border border-white border-2 focus:outline-none focus:border-pink-400 blurred"
+                  placeholder="Model will generate output here"
+                ></textarea>
+              </div>
+            </div>
+          </div>
 
           <!-- Control buttons -->
           <div class="flex items-center justify-center mt-8">
             <button
               id="butt"
               type="button"
-              class="text-white bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 inline-flex items-center"
+              class="text-black bg-gradient-to-r from-amber-400 to-pink-500 font-medium rounded-lg text-sm px-8 py-2.5 text-center mr-2 inline-flex items-center"
             >
               <svg
                 id="prog"
@@ -170,20 +225,20 @@
               >
                 <path
                   d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                  fill="#E5E7EB"
+                  fill="#000"
                 />
                 <path
                   d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                  fill="currentColor"
+                  fill="#000"
                 />
               </svg>
-              <p id="ptex">Summarize</p>
+              <p id="ptex" class="font-bold">Summarize</p>
             </button>
           </div>
 
           <!-- examples -->
           <p
-            class="leading-normal text-base md:text-2xl mb-4 text-center md:text-left"
+            class="text-2xl mt-4 mb-4 text-left font-bold"
           >
             Examples
           </p>
@@ -268,48 +323,24 @@
             </button>
           </div>
 
-          <div class="mb-4 mt-12">
-            <span
-              class="leading-normal md:text-2xl text-center md:text-left bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-pink-500"
-            >
-              Cleaned text
-            </span>
-          </div>
-
-          <textarea
-            id="clean"
-            rows="4"
-            class="block p-2.5 w-full text-md text-white bg-transparent rounded-lg border border-white border-2 focus:outline-none focus:border-cyan-300"
-            placeholder="Model will generate output here"
-          ></textarea>
-
-          <div class="mb-4 mt-12">
-            <span
-              class="leading-normal md:text-2xl text-center md:text-left bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-pink-500"
-            >
-              Predicted summary
-            </span>
-          </div>
-
-          <textarea
-            id="summary"
-            rows="3"
-            class="block p-2.5 w-full text-md text-white bg-transparent rounded-lg border border-white border-2 focus:outline-none focus:border-cyan-300"
-            placeholder="Model will generate output here"
-          ></textarea>
-
           <!--Footer-->
           <div
-            class="w-full pt-16 pb-6 text-sm text-center text-base md:text-left fade-in"
+            class="w-full pt-16 pb-6 text-sm text-center   text-white/80 fade-in"
           >
             <a class="no-underline hover:no-underline" href="#"
-              >© Sebastián Petrík - Plasmoxy 2023</a
+              >© Sebastián Petrík - Plasmoxy 2023 
+              | <a href="github.com/Plasmoxy">My GitHub</a> | Photo by <a href="https://unsplash.com/@andersjilden?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Anders Jildén</a> on <a href="https://unsplash.com/photos/GjwsHRIcQjU?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+  
+              </a
             >
           </div>
         </div>
       </div>
     </div>
 
+    <script>
+      
+    </script>
     <script src="main.js"></script>
   </body>
 </html>
