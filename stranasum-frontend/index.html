@@ -18,6 +18,7 @@
           "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
           "Noto Color Emoji";
       }
+      
     </style>
 
     <script
@@ -36,7 +37,7 @@
       
       .blurred {
         backdrop-filter: blur(4px);
-        background-color: #00000050;
+        background-color: #00000090;
       }
       
       body {
@@ -62,18 +63,18 @@
               class="text-cyan-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
               >Sum</span
             >
-            <p class="text-sm text-white mx-5">by Plasmoxy</p>
+            <p class="text-sm text-white mx-5">by Plasmoxy 🗿</p>
           </a>
         </div>
         
         <!--Main-->
         <div class="container md:px-36 pt-6">
           <p class="text-md text-white mb-6">
-            Deployment of my Simple Transformer Abstractive Summarization model
-            for my bachelor thesis. <b>Provide input text</b> with around same
-            length as example. Click on <b>example buttons</b> to load
-            cherry-picked example input texts, then press <b>summarize</b> to
-            run model <b>inference</b>. In case of the Gigaword models, the maximum sentence length is 70 words. If you enter a longer text, the app will split the sentences/text into chunks and print multiple summaries.
+            Deployment of my Simple Transformer Abstractive Summarization (STranASum) model
+            for my bachelor thesis, focusing specifically on summarization of <b class="text-pink-400">news articles</b>. <b class="text-amber-400">Provide input text</b> with around same
+            length as example. Click on <b class="text-amber-400">example buttons</b> to load
+            cherry-picked example input texts, or provide your own text, then press <b class="text-amber-400">summarize</b> to
+            run model <b class="text-amber-400">inference</b>. The model is trained <b class="text-amber-400">abstractive</b> - it will attempt to understand and paraphrase the text. In case of the Gigaword models, the maximum sentence length is 70 words. If you enter a longer text, the app will <b class="text-amber-400">split the sentences/text into chunks</b> and print multiple chunk summaries. Each model output is capitalized and a dot is appended.
           </p>
 
           <p
@@ -164,12 +165,14 @@
               </div>
 
               <!-- input area -->
-              <textarea
+              <div
                 id="article"
-                rows="11"
+                contenteditable="true"
+                style="height: 32em; overflow-y: auto;"
                 class="block p-2.5 w-full text-md text-white rounded-lg border border-white border-2 focus:outline-none focus:border-cyan-200 blurred"
                 placeholder="Write text here"
-              ></textarea>
+              >
+            </div>
             </div>
             <div class="flex-1 flex-row m-3 justify-start">
               <div class="flex-1">
@@ -181,12 +184,12 @@
                   </span>
                 </div>
 
-                <textarea
+                <div
                   id="clean"
-                  rows="4"
+                  style="height: 9em; overflow-y: auto;"
                   class="block p-2.5 w-full text-md text-white rounded-lg border border-white border-2 focus:outline-none focus:border-pink-400 blurred"
                   placeholder="Model will generate output here"
-                ></textarea>
+                ></div>
               </div>
               <div class="flex-1">
                 <div class="mb-4 mt-5">
@@ -197,12 +200,32 @@
                   </span>
                 </div>
 
-                <textarea
-                  id="summary"
-                  rows="3"
+                <!-- summary output div -->
+                <div
+                  style="height: 18.5em; overflow-y: auto;"
                   class="block p-2.5 w-full text-md text-white rounded-lg border border-white border-2 focus:outline-none focus:border-pink-400 blurred"
                   placeholder="Model will generate output here"
-                ></textarea>
+                >
+                <span id="summary"></span>
+                <svg
+                  id="progSum"
+                  aria-hidden="true"
+                  role="status"
+                  class="inline w-4 h-4 mr-3 text-white animate-spin hidden"
+                  viewBox="0 0 100 101"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                    fill="#0cf2d4"
+                  />
+                  <path
+                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                    fill="#0cf2d4"
+                  />
+                </svg>
+              </div>
               </div>
             </div>
           </div>
@@ -235,6 +258,24 @@
               <p id="ptex" class="font-bold">Summarize</p>
             </button>
           </div>
+          <div class="w-full pt-5 pb-6 text-sm text-center text-white/80 fade-in" >
+            * Please wait up to 15s in case the container is asleep.
+          </div>
+          
+          <p
+            class="text-2xl mt-4 mb-4 text-left font-bold"
+          >
+            Multi-chunk (long) examples
+          </p>
+          <div>
+            <button
+            type="button"
+            class="text-black bg-amber-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
+            onclick="article.innerHTML=`Iceland has become the first country to make it illegal to pay women less than men. The new law, which took effect on January 1, imposes a fine on companies and government organisations employing more than 25 workers if they pay men more than women. The Scandinavian country wants to eliminate the pay gap between the sexes completely within the next four years. Iceland has been considered the world's fairest country in terms of gender equality for the past nine years. In a country where half of the parliamentarians are female, women still earn about 15% less than men. The new Icelandic law aims at helping to change the attitude towards women in business and politics. According to the World Economic Forum, a Swiss-based non-profit organisation,  there is a global  58 % difference in pay between the sexes.  Economic experts predict that, if the current trend continues,  women will have to wait over two hundred years to get equal pay and the same opportunities at work.`"
+          >
+            Iceland pay women (hallucination)
+          </button>
+          </div>
 
           <!-- examples -->
           <p
@@ -247,89 +288,90 @@
             <button
               type="button"
               class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
-              onclick="article.value='An 18 year old man Joe Mama has been found in a tragic car accident in Washington US. The police have reported that a car has crashed with a lorry this evening on the street. The injured man has died on site.'"
+              onclick="article.innerHTML='An 18 year old man Joe Mama has been found in a tragic car accident in Washington US. The police have reported that a car has crashed with a lorry this evening on the street. The injured man has died on site.'"
             >
               Car accident - died
             </button>
             <button
               type="button"
               class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
-              onclick="article.value='An 18 year old man Joe Mama found alive in a tragic car accident in Washington US. The police have reported that a car has crashed with a lorry this evening on the street. The man was injured but survived the accident.'"
+              onclick="article.innerHTML='An 18 year old man Joe Mama found alive in a tragic car accident in Washington US. The police have reported that a car has crashed with a lorry this evening on the street. The man was injured but survived the accident.'"
             >
               Car accident - survived
             </button>
             <button
               type="button"
               class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
-              onclick="article.value='An 18 year old man Joe Mama found dead in a tragic plane accident in Beijing, China. The police have reported that a plane has been struck mid air by an unknown object. No one on board survived the accident.'"
+              onclick="article.innerHTML='An 18 year old man Joe Mama found dead in a tragic plane accident in Beijing, China. The police have reported that a plane has been struck mid air by an unknown object. No one on board survived the accident.'"
             >
               Plane crash in Beijing
             </button>
             <button
               type="button"
               class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
-              onclick="article.value='The World Health Organization (WHO) Country Office in China is informed of several cases of a pneumonia of unknown etiology (cause) with symptoms including shortness of breath and fever occurring in Wuhan, China. All initial cases seem connected to the Huanan Seafood Market.'"
+              onclick="article.innerHTML='The World Health Organization (WHO) Country Office in China is informed of several cases of a pneumonia of unknown etiology (cause) with symptoms including shortness of breath and fever occurring in Wuhan, China. All initial cases seem connected to the Huanan Seafood Market.'"
             >
               Coronavirus in Wuhan
             </button>
             <button
               type="button"
               class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
-              onclick="article.value='HHS and CDC announce plans to provide $22 billion in funding for states, localities, and territories to support expanded COVID-19 testing and vaccine distribution from the Coronavirus Response and Relief Supplemental Appropriations Act.'"
+              onclick="article.innerHTML='HHS and CDC announce plans to provide $22 billion in funding for states, localities, and territories to support expanded COVID-19 testing and vaccine distribution from the Coronavirus Response and Relief Supplemental Appropriations Act.'"
             >
               Vaccine funding
             </button>
             <button
               type="button"
               class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
-              onclick="article.value='The US president Joe Biden has annouced that he will be coming to China in April to consult the chinese president Xi Jingping about the current nuclear threats.'"
+              onclick="article.innerHTML='The US president Joe Biden has annouced that he will be coming to China in April to consult the chinese president Xi Jingping about the current nuclear threats.'"
             >
               Biden and Xi nuclear
             </button>
             <button
               type="button"
               class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
-              onclick="article.value='A 7-hour strike by airport workers in portugal planned for friday over job security issues could lead to flight cancellations - union and airport officials said.'"
+              onclick="article.innerHTML='A 7-hour strike by airport workers in portugal planned for friday over job security issues could lead to flight cancellations - union and airport officials said.'"
             >
               Airport workers strike
             </button>
             <button
               type="button"
               class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
-              onclick="article.value='Israel prepared Sunday for prime minister Yitzhak rabin\'s state funeral which will be attended by a host of world leaders including the US president Joe Biden and the Kordanian and Egyptian heads of state.'"
+              onclick="article.innerHTML='Israel prepared Sunday for prime minister Yitzhak rabin\'s state funeral which will be attended by a host of world leaders including the US president Joe Biden and the Kordanian and Egyptian heads of state.'"
             >
               Rabin funreal
             </button>
             <button
               type="button"
               class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
-              onclick="article.value='Japan\'s Toyota team Europe were banned from the World Rally Championship for one year here on Friday 3/5/2023 in a crushing ruling by the world council of the International Automobile Federation.'"
+              onclick="article.innerHTML='Japan\'s Toyota team Europe were banned from the World Rally Championship for one year here on Friday 3/5/2023 in a crushing ruling by the world council of the International Automobile Federation.'"
             >
               Toyota ban
             </button>
             <button
               type="button"
               class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
-              onclick="article.value='The United States business leaders lashed out Wednesday at legislation that would penalize companies for employing illegal immigrants.'"
+              onclick="article.innerHTML='The United States business leaders lashed out Wednesday at legislation that would penalize companies for employing illegal immigrants.'"
             >
               US immigrant employment
             </button>
             <button
               type="button"
               class="text-white bg-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-1 inline-flex items-center"
-              onclick="article.value='A Ukrainian farmer has come up with a novel way to remove mines left in his fields after Russia\'s invasion -- he\'s kitted out his tractor with protective panels stripped from Russian tanks and operates it by remote control.'"
+              onclick="article.innerHTML='A Ukrainian farmer has come up with a novel way to remove mines left in his fields after Russia\'s invasion -- he\'s kitted out his tractor with protective panels stripped from Russian tanks and operates it by remote control.'"
             >
               Ukraine farmer
             </button>
           </div>
+          
 
           <!--Footer-->
           <div
             class="w-full pt-16 pb-6 text-sm text-center   text-white/80 fade-in"
           >
             <a class="no-underline hover:no-underline" href="#"
-              >© Sebastián Petrík - Plasmoxy 2023 
-              | <a href="github.com/Plasmoxy">My GitHub</a> | Photo by <a href="https://unsplash.com/@andersjilden?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Anders Jildén</a> on <a href="https://unsplash.com/photos/GjwsHRIcQjU?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+              >© Sebastián Petrík (Plasmoxy) 2023 • Made with 💕 and Tailwind 🗿 •
+              <a href="github.com/Plasmoxy">My GitHub</a> • Photo by <a href="https://unsplash.com/@andersjilden?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Anders Jildén</a> on <a href="https://unsplash.com/photos/GjwsHRIcQjU?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
   
               </a
             >
