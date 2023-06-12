@@ -13,6 +13,16 @@
 Author: Sebastián Petrík
 
 Code repository for the bachelor thesis "Abstractive summarization using deep learning" on FIIT STU, Bratislava.
+
+<p align="center">
+  <picture>
+    <img alt="Hugging Face Transformers Library" src="https://github.com/Plasmoxy/stranasum-summarizer/blob/main/ezgif-1-79b9a1a64b.gif?raw=true" style="max-width: 60%;">
+  </picture>
+  <br/>
+  <br/>
+</p>
+
+
 The digital part included in the thesis contains the following files:
 ```
 BP_SebastianPetrik
